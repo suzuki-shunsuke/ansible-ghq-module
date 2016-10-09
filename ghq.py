@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import os
+
 DOCUMENTATION = '''
 ---
 module: ghq
@@ -97,24 +99,23 @@ ghq:
 RETURN = '''
 '''
 
-import json
-import os.path
-
-# from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.basic import *
 
 
 def main():
-    module = AnsibleModule(argument_spec={
-        "name": {"default": None, "type": "str"},
-        "executable": {"default": "ghq", "type": "str"},
-        "root": {"default": None, "type": "str"},
-        "update": {"default": False, "type": "bool"},
-        "ssh": {"default": False, "type": "bool"},
-        "shallow": {"default": False, "type": "bool"},
-        "src": {"default": None, "type": "str"},
-        "subcommand": {"default": None},
-    }, add_file_common_args=True)
+    module = AnsibleModule(
+        argument_spec={
+            "name": {"default": None, "type": "str"},
+            "executable": {"default": "ghq", "type": "str"},
+            "root": {"default": None, "type": "str"},
+            "update": {"default": False, "type": "bool"},
+            "ssh": {"default": False, "type": "bool"},
+            "shallow": {"default": False, "type": "bool"},
+            "src": {"default": None},
+            "subcommand": {"default": None},
+        },
+        add_file_common_args=True
+    )
     params = module.params
     name = params["name"]
     executable = params["executable"]

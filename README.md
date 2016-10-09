@@ -88,10 +88,15 @@ MIT
 
 ## For developers
 
-### Local Test with Vagrant
+### Test in Vagrant Provisioning
 
 ```
 $ sh _setup.sh
-$ export ANSIBLE_LIBRARY=$PWD:$ANSIBLE_LIBRARY  # if you use direnv, it is automatically set.
 $ vagrant up --provision
+```
+
+### Test in localhost
+
+```
+$ ansible-playbook test.yml
 ```

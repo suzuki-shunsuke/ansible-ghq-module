@@ -5,10 +5,6 @@ python: "2.7"
 sudo: required
 dist: trusty
 
-env:
-- ANSIBLE_LIBRARY=/home/travis/build/suzuki-shunsuke/ansible-ghq-module
-- ANSIBLE_ROLES_PATH=/home/travis/build/suzuki-shunsuke/ansible-ghq-module
-
 addons:
   apt:
     sources:
@@ -18,8 +14,7 @@ addons:
 
 before_script:
 - ansible --version
-- ansible-galaxy install -r roles.yml
-- git clone https://github.com/suzuki-shunsuke/ansible-go-module
+- sh _setup.sh
 
 script:
 - ansible-playbook test.yml

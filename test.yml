@@ -1,5 +1,5 @@
 ---
-- hosts: travis
+- hosts: localhost
   connection: local
   vars:
     executable: "{{ ansible_env.HOME }}/.go/bin/ghq"
