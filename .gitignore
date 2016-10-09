@@ -1,0 +1,4 @@
+.vagrant
+*.retry
+modules
+_roles

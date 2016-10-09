@@ -1,0 +1,4 @@
+- name: Import from file
+  ghq:
+    executable: "{{ executable }}"
+    src: repos.txt

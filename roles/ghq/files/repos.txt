@@ -1,0 +1,1 @@
+suzuki-shunsuke/ansible-go-module
