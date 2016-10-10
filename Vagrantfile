@@ -9,8 +9,8 @@ Vagrant.configure(2) do |config|
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "./test-vagrant.yml"
   end
-  # config.vm.provision "ansible_local" do |ansible|
-  #   ansible.playbook = "./test.yml"
-  #   ansible.install = true
-  # end
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.playbook = "./test-vagrant.yml"
+    ansible.install = true
+  end
 end

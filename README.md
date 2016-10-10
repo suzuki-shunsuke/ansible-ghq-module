@@ -92,7 +92,8 @@ MIT
 
 ```
 $ sh _setup.sh
-$ vagrant up --provision
+$ vagrant up --provision-with=ansible
+$ vagrant up --provision-with=ansible_local
 ```
 
 ### Test in localhost
