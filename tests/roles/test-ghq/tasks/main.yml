@@ -2,3 +2,7 @@
   ghq:
     executable: "{{ executable }}"
     src: repos.txt
+    update: yes
+  register: result
+- debug:
+    var: result

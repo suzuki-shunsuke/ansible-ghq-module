@@ -163,15 +163,32 @@ def main():
         if os.path.isdir(src):
             module.fail_json(msg="Source must be file, not directory")
         with open(src) as r:
-            options["data"] = r.read()
+            options["data"] = _parse_source(r.read())
     elif subcommand:
         cmd += subcommand if isinstance(subcommand, list) else subcommand.split(" ")
 
+    # module.fail_json(msg=err, cmd=cmd, options=options)
     rc, out, err = module.run_command(cmd, **options)
     if rc:
         module.fail_json(msg=err, stdout=out, cmd=cmd, options=options)
     else:
-        module.exit_json(changed=True, stdout=out, stderr=err)
+        module.exit_json(changed=is_changed(out), stdout=out, stderr=err)
+
+
+def is_line_changed(line):
+    return line.startswith("Updating") or "  clone" in line
+
+
+def is_changed(out):
+    return any(is_line_changed(line.strip()) for line in out.split("\n"))
+
+
+def _filter_line(line):
+    return line and not line.startswith("#")
+
+
+def _parse_source(text):
+    return "\n".join(line.strip() for line in text.split("\n") if _filter_line(line.strip()))
 
 
 if __name__ == '__main__':

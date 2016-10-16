@@ -1,4 +1,5 @@
-.vagrant
+*.pyc
 *.retry
-modules
-_roles
+.vagrant
+tests/_roles
+!tests/_roles/.gitkeep

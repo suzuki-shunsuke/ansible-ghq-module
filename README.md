@@ -2,12 +2,15 @@
 
 [![Build Status](https://travis-ci.org/suzuki-shunsuke/ansible-ghq-module.svg?branch=master)](https://travis-ci.org/suzuki-shunsuke/ansible-ghq-module)
 
-Manage remote repository with [motemen/ghq](https://github.com/motemen/ghq).
+Manage remote repository with the [motemen/ghq](https://github.com/motemen/ghq).
+Although this is distributed in the Ansible Galaxy,
+this is not an Ansible role but an Ansible Module and Action Plugin.
+
+https://galaxy.ansible.com/suzuki-shunsuke/ghq-module/
 
 ## Notice
 
 * This module doesn't support the check mode.
-* If this module succeeds, the result's changed attribute is always true.
 
 ## Requirements
 
@@ -16,12 +19,20 @@ Manage remote repository with [motemen/ghq](https://github.com/motemen/ghq).
 
 ## Install
 
-In the following example this module is installed in ~/ansible/modules directory.
+This module is distributed in the Ansible Galaxy.
+So you can install this with tha `ansible-galaxy` command.
 
 ```
-$ mkdir -p ~/ansible/modules
-$ export ANSIBLE_LIBRARY=~/ansible/modules
-$ git clone suzuki-shunsuke/ansible-ghq-module ~/ansible/modules/ansible-ghq-module
+$ ansible-galaxy install suzuki-shunsuke.ghq-module
+```
+
+```yaml
+# playbook.yml
+
+- hosts: default
+  roles:
+  # After you call this module, you can use this
+  - suzuki-shunsuke.ghq-module
 ```
 
 ## Options
@@ -70,6 +81,7 @@ ghq:
   shallow: yes
 
 # Import from file
+# Empty lines and started with sharp("#") lines are ignored
 ghq:
   src: repos.txt
 
@@ -88,10 +100,22 @@ MIT
 
 ## For developers
 
+### Requirements
+
+* Vagrant
+* Ansible
+
+### Setup test
+
+```
+$ cd tests
+$ ansible-galaxy install -r roles.yml
+```
+
 ### Test in Vagrant Provisioning
 
 ```
-$ sh _setup.sh
+$ cd tests
 $ vagrant up --provision-with=ansible
 $ vagrant up --provision-with=ansible_local
 ```
