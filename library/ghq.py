@@ -18,11 +18,6 @@ options:
       - The executable location for ghq.
     required: no
     type: str
-  root:
-    description:
-      - The ghq root directory.
-    required: no
-    type: str
   update:
     description:
       - When this option is yes, the -u option is added.
@@ -77,11 +72,6 @@ ghq:
   name: suzuki-shunsuke/zsh.conf
   ssh: yes
 
-# Specify the ghq.root
-ghq:
-  name: suzuki-shunsuke/zsh.conf
-  root: {{ ansible_env.HOME }}/.repos
-
 # Shallow clone
 ghq:
   name: suzuki-shunsuke/zsh.conf
@@ -107,7 +97,6 @@ def main():
         argument_spec={
             "name": {"default": None, "type": "str"},
             "executable": {"default": "ghq", "type": "str"},
-            "root": {"default": None, "type": "str"},
             "update": {"default": False, "type": "bool"},
             "ssh": {"default": False, "type": "bool"},
             "shallow": {"default": False, "type": "bool"},
@@ -119,7 +108,6 @@ def main():
     params = module.params
     name = params["name"]
     executable = params["executable"]
-    root = params["root"]
     update = params["update"]
     ssh = params["ssh"]
     shallow = params["shallow"]
@@ -138,11 +126,6 @@ def main():
             module.fail_json(msg="subcommand must be str or list of str.")
 
     options = {}
-    environ_update = {}
-    if root:
-        environ_update["GHQ_ROOT"] = root
-    if environ_update:
-        options["environ_update"] = environ_update
 
     cmd = [executable, "get" if name else "import"]
     if update:

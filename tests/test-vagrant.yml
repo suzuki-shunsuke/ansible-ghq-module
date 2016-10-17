@@ -3,15 +3,16 @@
   vars:
     executable: "{{ ansible_env.HOME }}/.go/bin/ghq"
   roles:
-  # - role: suzuki-shunsuke.go
-  - role: suzuki-shunsuke.go-module
-  - role: ansible-ghq-module
+  - suzuki-shunsuke.go
+  - suzuki-shunsuke.go-module
+  - ansible-ghq-module
   tasks:
-  # - name: Install ghq
-  # - go:
-  # -   name: github.com/motemen/ghq
-  # -   executable: /usr/local/go/bin/go
-  # -   gopath: "{{ ansible_env.HOME }}/.go"
+  - name: Install ghq
+    go:
+      name: github.com/motemen/ghq
+      executable: /usr/local/go/bin/go
+    environment:
+      GOPATH: "{{ ansible_env.HOME }}/.go"
   - name: Clone suzuki-shunsuke/zsh.conf
     ghq:
       name: suzuki-shunsuke/zsh.conf
@@ -21,11 +22,6 @@
       name: suzuki-shunsuke/zsh.conf
       executable: "{{ executable }}"
       update: yes
-  - name: Specify the ghq.root
-    ghq:
-      name: suzuki-shunsuke/vim.conf
-      executable: "{{ executable }}"
-      root: "{{ ansible_env.HOME }}/repos"
   - name: failed when both name and source are specified
     ghq:
       executable: "{{ executable }}"
@@ -39,12 +35,12 @@
       src: repos.txt
     register: result
     failed_when: "not result.failed"
-  # - name: failed when repository not found
-  # - ghq:
-  # -   executable: "{{ executable }}"
-  # -   name: suzuki-shunsuke/tmux.confd
-  # - register: result
-  # - failed_when: "not result.failed"
+  - name: failed when repository not found
+    ghq:
+      executable: "{{ executable }}"
+      name: suzuki-shunsuke/tmux.confd
+    register: result
+    failed_when: "not result.failed"
   - name: Shallow Clone
     ghq:
       name: suzuki-shunsuke/tmux.conf

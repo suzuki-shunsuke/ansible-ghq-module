@@ -41,7 +41,6 @@ parameter | required | default | choices | comments
 --- | --- | --- | --- | ---
 name | no | | | The repository path
 executable | no | | | The executable path of ghq command
-root | no | | | The environment variable GHQ_ROOT
 update | no | no | bool | If yes, the -u option is added
 ssh | no | no | bool | If yes, the -p option is added
 shallow | no | no | bool | If yes, the -shallow option is added
@@ -58,7 +57,7 @@ ghq:
 # Specify the path of ghq command
 ghq:
   name: suzuki-shunsuke/zsh.conf
-  executable: {{ ansible_env.HOME }}/.go/bin/ghq
+  executable: "{{ansible_env.HOME}}/.go/bin/ghq"
 
 # Update
 go:
@@ -69,11 +68,6 @@ go:
 ghq:
   name: suzuki-shunsuke/zsh.conf
   ssh: yes
-
-# Specify the ghq.root
-ghq:
-  name: suzuki-shunsuke/zsh.conf
-  root: {{ ansible_env.HOME }}/.repos
 
 # Shallow clone
 ghq:

@@ -12,7 +12,8 @@
     go:
       name: github.com/motemen/ghq
       executable: /usr/local/go/bin/go
-      gopath: "{{ ansible_env.HOME }}/.go"
+    environment:
+      GOPATH: "{{ ansible_env.HOME }}/.go"
   - name: Clone suzuki-shunsuke/zsh.conf
     ghq:
       name: suzuki-shunsuke/zsh.conf
@@ -22,11 +23,6 @@
       name: suzuki-shunsuke/zsh.conf
       executable: "{{ executable }}"
       update: yes
-  - name: Specify the ghq.root
-    ghq:
-      name: suzuki-shunsuke/vim.conf
-      executable: "{{ executable }}"
-      root: "{{ ansible_env.HOME }}/repos"
   - name: failed when both name and source are specified
     ghq:
       executable: "{{ executable }}"
